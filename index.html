@@ -3,1315 +3,985 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelo SAMR - Aprendizaje Profundo</title>
+  <title>Finanzas para no ahogarse antes de fin de mes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     :root {
-      --bg: #0f172a;
-      --bg-alt: #020617;
-      --card-bg: #111827;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --danger: #f97373;
-      --success: #4ade80;
-      --border: #1f2937;
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
-      --shadow-sm: 0 10px 25px rgba(15, 23, 42, 0.7);
+      --bg: #0b1020;
+      --card: #10172a;
+      --muted: #c6cce2;
+      --text: #e9ecf8;
+      --primary: #7c9cff;
+      --primary-strong: #5a7bff;
+      --success: #22c55e;
+      --ring: rgba(124,156,255,.45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius-xl: 18px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --chip-bg: rgba(124,156,255,.14);
+      --pill-bg: rgba(15,23,42,.5);
+      --separator: rgba(15,23,42,.8);
+      --surface-1: rgba(15,23,42,.7);
+      --header-glow: rgba(124,156,255,.18);
+      --tab-border: rgba(124,156,255,.25);
+      --progress-bg: rgba(124,156,255,.15);
+      --link-btn-border: rgba(124,156,255,.35);
+      --link-btn-hover: rgba(124,156,255,.16);
+      --card-border: rgba(124,156,255,.18);
+      --card-border-2: rgba(124,156,255,.2);
+      --video-bg: #000;
+      color-scheme: light dark;
     }
 
-    * {
-      box-sizing: border-box;
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --muted: #5a647d;
+        --text: #101423;
+        --shadow: 0 10px 30px rgba(16,20,35,.08);
+        --chip-bg: rgba(124,156,255,.12);
+        --pill-bg: #f1f5f9;
+        --separator: #e6eaf5;
+        --surface-1: #f8fafc;
+        --header-glow: rgba(124,156,255,.14);
+        --tab-border: rgba(16,20,35,.12);
+        --progress-bg: rgba(124,156,255,.22);
+        --link-btn-border: rgba(124,156,255,.35);
+        --link-btn-hover: rgba(124,156,255,.12);
+        --card-border: rgba(16,20,35,.08);
+        --card-border-2: rgba(16,20,35,.1);
+        --video-bg: #f0f3fa;
+      }
     }
+
+    :root[data-theme="light"] {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --muted: #5a647d;
+      --text: #101423;
+      --shadow: 0 10px 30px rgba(16,20,35,.08);
+      --chip-bg: rgba(124,156,255,.12);
+      --pill-bg: #f1f5f9;
+      --separator: #e6eaf5;
+      --surface-1: #f8fafc;
+      --header-glow: rgba(124,156,255,.14);
+      --tab-border: rgba(16,20,35,.12);
+      --progress-bg: rgba(124,156,255,.22);
+      --link-btn-border: rgba(124,156,255,.35);
+      --link-btn-hover: rgba(124,156,255,.12);
+      --card-border: rgba(16,20,35,.08);
+      --card-border-2: rgba(16,20,35,.1);
+      --video-bg: #f0f3fa;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0b1020;
+      --card: #10172a;
+      --muted: #c6cce2;
+      --text: #e9ecf8;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --chip-bg: rgba(124,156,255,.14);
+      --pill-bg: rgba(15,23,42,.5);
+      --separator: rgba(15,23,42,.8);
+      --surface-1: rgba(15,23,42,.7);
+      --header-glow: rgba(124,156,255,.18);
+      --tab-border: rgba(124,156,255,.25);
+      --progress-bg: rgba(124,156,255,.15);
+      --link-btn-border: rgba(124,156,255,.35);
+      --link-btn-hover: rgba(124,156,255,.16);
+      --card-border: rgba(124,156,255,.18);
+      --card-border-2: rgba(124,156,255,.2);
+      --video-bg: #000;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,156,255,.25), transparent 60%),
+        radial-gradient(900px 500px at -10% 10%, rgba(34,197,94,.18), transparent 55%),
+        var(--bg);
       color: var(--text);
+      padding: 24px;
       line-height: 1.6;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
-    .header-inner {
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: conic-gradient(from 160deg, #38bdf8, #6366f1, #22c55e, #facc15, #38bdf8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
-    }
-
-    .logo-icon span {
-      font-weight: 800;
-      color: #0b1220;
-      font-size: 0.95rem;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .logo-text strong {
-      font-size: 1rem;
-    }
-
-    .logo-text span {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    nav {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: rgba(148, 163, 184, 0.45);
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 1.8rem auto 3rem;
-      padding: 0 1.5rem 3rem;
-    }
-
-    .hero {
+    .header {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 2rem;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
       align-items: center;
-      margin-bottom: 2.5rem;
     }
 
-    .hero-text h1 {
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
-      line-height: 1.15;
-      margin-bottom: 0.7rem;
+    @media (max-width: 800px) {
+      .header {
+        grid-template-columns: minmax(0,1fr);
+      }
     }
 
-    .hero-text h1 span {
-      background: linear-gradient(to right, #38bdf8, #22c55e);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-text p {
-      color: var(--muted);
-      max-width: 540px;
-      font-size: 0.95rem;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 1rem 0 1.25rem;
+    .course-main {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      padding: 24px 26px;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.3rem 0.7rem;
+      gap: 6px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: var(--chip-bg);
+      color: var(--primary);
       font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 16px;
+      font-size: 0.9rem;
       color: var(--muted);
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 0.2rem;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 0.6rem 1.1rem;
-      border: 1px solid transparent;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.86rem;
-      cursor: pointer;
+    .meta-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--pill-bg);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      color: #0b1220;
+    .meta-pill i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .course-side {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border-2);
+      box-shadow: var(--shadow);
+      padding: 18px 20px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--video-bg);
+      aspect-ratio: 16/9;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .stars {
+      color: #fbbf24;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--progress-bg);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 4%; /* ejemplo: 1.63% completado aprox */
+      background: linear-gradient(90deg, var(--primary), var(--primary-strong));
+      border-radius: 999px;
+    }
+
+    .continue-btn {
+      margin-top: 14px;
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #fff;
+      border: none;
+      cursor: pointer;
       font-weight: 600;
-      box-shadow: 0 16px 35px rgba(8, 47, 73, 0.9);
+      font-size: 0.95rem;
+      box-shadow: 0 6px 16px var(--ring);
+      transition: all .2s ease;
     }
 
-    .btn-primary:hover {
+    .continue-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px var(--ring);
       filter: brightness(1.05);
-      transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      border-color: rgba(148, 163, 184, 0.5);
+    .tabs {
+      margin-top: 10px;
+      display: flex;
+      border-bottom: 1px solid var(--tab-border);
+      gap: 18px;
     }
 
-    .btn-secondary:hover {
-      background: rgba(15, 23, 42, 0.9);
+    .tab-btn {
+      padding: 10px 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      position: relative;
+    }
+
+    .tab-btn.active {
       color: var(--text);
     }
 
-    .hero-visual {
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 60%),
-        radial-gradient(circle at bottom, rgba(34, 197, 94, 0.12), transparent 55%);
-      border-radius: var(--radius-xl);
-      padding: 1.2rem;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-visual-inner {
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
-      border-radius: 1.2rem;
-      padding: 1rem;
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stairs {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.5rem;
-      align-items: flex-end;
-      height: 160px;
-    }
-
-    .step {
-      border-radius: 14px;
-      padding: 0.55rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.96));
-      position: relative;
-      overflow: hidden;
-    }
-
-    .step-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
-      opacity: 0.1;
-    }
-
-    .step-title {
-      font-weight: 600;
-      margin-bottom: 0.15rem;
-      font-size: 0.72rem;
-    }
-
-    .step-level {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 0.25rem;
-    }
-
-    .step-desc {
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-
-    .step-label {
-      margin-top: 0.35rem;
-      font-size: 0.65rem;
-      text-align: right;
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .step-1 {
-      height: 70%;
-    }
-
-    .step-2 {
-      height: 80%;
-    }
-
-    .step-3 {
-      height: 90%;
-    }
-
-    .step-4 {
-      height: 100%;
-    }
-
-    .hero-visual-caption {
-      margin-top: 0.8rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .chip {
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    section {
-      margin-top: 2.3rem;
-    }
-
-    section h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-    }
-
-    section p {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .pill-title {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
-    }
-
-    .grid {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 45%),
-        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      padding: 1rem;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
+    .tab-btn.active::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(148, 163, 184, 0.2), transparent 60%);
-      mix-blend-mode: soft-light;
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 0.3rem;
-      font-size: 1rem;
-    }
-
-    .card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-
-    .level-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.25rem 0.6rem;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
       border-radius: 999px;
-      font-size: 0.7rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      margin-bottom: 0.4rem;
+      background: linear-gradient(90deg, var(--primary), var(--primary-strong));
     }
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
+    .tab-content {
+      margin-top: 18px;
     }
 
-    .dot-s {
-      background: #6b7280;
-    }
-
-    .dot-a {
-      background: #38bdf8;
-    }
-
-    .dot-m {
-      background: #22c55e;
-    }
-
-    .dot-r {
-      background: #facc15;
-    }
-
-    .levels-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .comparative-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0.8rem;
-      font-size: 0.85rem;
-      overflow: hidden;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .comparative-table th,
-    .comparative-table td {
-      padding: 0.6rem 0.7rem;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-      text-align: left;
-    }
-
-    .comparative-table th {
-      background: rgba(15, 23, 42, 0.98);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-
-    .comparative-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .comparative-table tbody tr:nth-child(odd) {
-      background: rgba(15, 23, 42, 0.92);
-    }
-
-    .badge-small {
-      display: inline-flex;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.7rem;
-      color: var(--muted);
-      gap: 0.25rem;
-      align-items: center;
-    }
-
-    .example-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    .example-tag span {
-      font-size: 0.8rem;
-    }
-
-    .image-placeholder {
-      margin-top: 1rem;
-      padding: 0.9rem;
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.8);
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .image-placeholder strong {
-      color: var(--accent);
-    }
-
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.6rem;
-    }
-
-    .chip-pill {
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.7rem;
-      color: var(--muted);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 0.8rem 0 0.9rem;
-    }
-
-    .filter-btn {
-      padding: 0.3rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.8rem;
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active {
-      background: var(--accent);
-      color: #020617;
-      border-color: transparent;
-      font-weight: 600;
-    }
-
-    .examples-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 0.9rem;
-    }
-
-    .example-card {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 0.8rem 0.9rem;
-      font-size: 0.83rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .example-card h4 {
-      margin: 0 0 0.15rem;
-      font-size: 0.9rem;
-    }
-
-    .example-context {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .example-level {
-      font-size: 0.7rem;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .example-card span.level-label {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.66rem;
-      color: var(--muted);
-    }
-
-    .example-hidden {
+    .tab-panel {
       display: none;
     }
 
-    .list {
-      margin: 0.4rem 0 0;
-      padding-left: 1.1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
+    .tab-panel.active {
+      display: block;
     }
 
-    .list li {
-      margin-bottom: 0.3rem;
+    /* Clases */
+
+    .module {
+      margin-bottom: 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--tab-border);
+      overflow: hidden;
+      background: var(--surface-1);
     }
 
-    .quiz {
-      margin-top: 1rem;
-      padding: 0.9rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), rgba(15, 23, 42, 0.98));
-    }
-
-    .quiz h3 {
-      margin-top: 0;
-      font-size: 0.98rem;
-    }
-
-    .quiz-item {
-      margin-top: 0.7rem;
-    }
-
-    .quiz-question {
-      font-size: 0.86rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .quiz-options {
-      display: grid;
-      gap: 0.3rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .quiz-options button {
-      text-align: left;
-      padding: 0.35rem 0.6rem;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.95);
-      font-size: 0.83rem;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .quiz-options button:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-
-    .quiz-feedback {
-      font-size: 0.8rem;
-      min-height: 1rem;
-    }
-
-    .quiz-feedback.correct {
-      color: var(--success);
-    }
-
-    .quiz-feedback.incorrect {
-      color: var(--danger);
-    }
-
-    .conclusion-card {
-      margin-top: 0.8rem;
-      padding: 0.9rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 0.98));
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    footer {
-      margin-top: 2.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(30, 64, 175, 0.7);
-      font-size: 0.78rem;
-      color: var(--muted);
+    .module-header {
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
-      gap: 0.5rem;
-      flex-wrap: wrap;
+      align-items: center;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--header-glow), transparent);
     }
 
-    footer span strong {
-      color: var(--text);
+    .module-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    @media (max-width: 820px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    .module-title span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
 
-      .hero-visual {
-        order: -1;
-      }
+    .module-toggle-icon {
+      color: var(--muted);
+      transition: transform .2s ease;
+    }
+
+    .module-toggle {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .module.open .module-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .class-list {
+      border-top: 1px solid var(--separator);
+      display: none;
+    }
+
+    .module.open .class-list {
+      display: block;
+    }
+
+    .class-item {
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      border-top: 1px solid var(--separator);
+    }
+
+    .class-item:first-child {
+      border-top: none;
+    }
+
+    .class-left-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+
+    .class-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .class-title {
+      font-weight: 500;
+    }
+
+    .class-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .class-duration {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-right: 8px;
+    }
+
+    .class-link-btn {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--link-btn-border);
+      background: transparent;
+      color: var(--primary);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+
+    .class-link-btn:hover {
+      background: var(--link-btn-hover);
+    }
+
+    .class-link-btn[disabled], .class-link-btn[aria-disabled="true"] {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .class-video {
+      grid-column: 1 / -1;
+    }
+
+    .class-video .video-aspect {
+      position: relative;
+      padding-top: 56.25%;
+    }
+
+    .class-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     @media (max-width: 640px) {
-      .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
+      .class-item {
+        grid-template-columns: minmax(0,1fr);
       }
-
-      nav {
-        width: 100%;
-        justify-content: flex-start;
+      .class-left-icon {
+        display: none;
       }
-
-      main {
-        padding: 0 1.1rem 2.5rem;
-      }
-
-      .hero {
-        margin-bottom: 2rem;
-      }
-
-      .stairs {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        height: 140px;
+      .class-item > div:last-child {
+        margin-top: 8px;
       }
     }
+
+    /* SOBRE EL CURSO */
+
+    .section-title {
+      font-size: 1.05rem;
+      margin: 10px 0 6px;
+      font-weight: 700;
+    }
+
+    .requirement-list,
+    .learn-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 4px 0 14px;
+    }
+
+    .requirement-list li,
+    .learn-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    .requirement-list i,
+    .learn-list i {
+      margin-top: 3px;
+      color: var(--primary);
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .learn-list i {
+      color: var(--success);
+    }
+
+    .paragraph {
+      font-size: 0.94rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <div class="logo-icon">
-          <span>SAMR</span>
+  <div class="topbar">
+    <button class="theme-toggle" type="button" id="themeToggle" aria-label="Cambiar tema">
+      <i class="fas fa-moon" aria-hidden="true"></i>
+      <span id="themeToggleLabel">Oscuro</span>
+    </button>
+  </div>
+  <div class="container">
+    <header class="header">
+      <div class="course-main">
+        <div class="badge">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          Curso de Finanzas Personales
         </div>
-        <div class="logo-text">
-          <strong>Modelo SAMR</strong>
-          <span>Aprendizaje profundo con tecnología</span>
-        </div>
-      </div>
-      <nav>
-        <a href="#intro">Inicio</a>
-        <a href="#niveles">Niveles SAMR</a>
-        <a href="#ejemplos">Ejemplos</a>
-        <a href="#ventajas">Ventajas</a>
-        <a href="#conclusiones">Conclusiones</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <!-- HERO / INTRO -->
-    <section id="intro" class="hero">
-      <div class="hero-text">
-        <p class="pill-title">Tecnología educativa</p>
-        <h1>
-          El <span>Modelo SAMR</span> como herramienta para diseñar
-          experiencias de aprendizaje profundo.
-        </h1>
-        <p>
-          El modelo SAMR, desarrollado por el Dr. Ruben Puentedura, propone cuatro
-          niveles de integración de la tecnología: Sustitución, Aumento, Modificación
-          y Redefinición. Este mini sitio muestra cómo pasar de un uso básico de la
-          tecnología a experiencias de aprendizaje que antes eran impensables.
+        <h1 class="title">Finanzas para no ahogarse antes de fin de mes</h1>
+        <p class="subtitle">
+          Un curso práctico pensado para jóvenes que quieren dejar de perder el control de su dinero
+          y empezar a tomar decisiones conscientes, sin complicarse la vida.
         </p>
-
-        <div class="hero-badges">
-          <div class="badge">
-            <span class="badge-dot"></span>
-            Aprendizaje profundo en contextos auténticos
+        <div class="meta-row">
+          <div class="meta-pill">
+            <i class="fas fa-user-group" aria-hidden="true"></i>
+            Jóvenes universitarios (18–25 años)
           </div>
-          <div class="badge">
-            📚 Diseño de actividades con tecnología
+          <div class="meta-pill">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            10 horas · 4 semanas
           </div>
-          <div class="badge">
-            💡 De lo tradicional a lo transformador
+          <div class="meta-pill">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+            4 módulos · actividades prácticas
           </div>
-        </div>
-
-        <div class="hero-actions">
-          <button class="btn btn-primary" onclick="scrollToSection('niveles')">
-            Explorar los niveles SAMR →
-          </button>
-          <button class="btn btn-secondary" onclick="scrollToSection('ejemplos')">
-            Ver ejemplos de actividades
-          </button>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-visual-inner">
-          <div class="stairs">
-            <div class="step step-1">
-              <div class="step-overlay"></div>
-              <div>
-                <div class="step-level">Nivel 1</div>
-                <div class="step-title">Sustitución</div>
-                <div class="step-desc">
-                  La tecnología reemplaza una herramienta sin cambiar la tarea.
+      
+
+      
+    </header>
+
+    <main>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="clases">Clases</button>
+        <button class="tab-btn" data-tab="sobre">Sobre el curso</button>
+      </div>
+
+      <div class="tab-content">
+        <!-- CLASES -->
+        <section class="tab-panel active" id="tab-clases">
+
+          <!-- MÓDULO 0 -->
+          <article class="module open">
+            <div class="module-header">
+              <h2 class="module-title">
+                <span>Módulo 0</span> Introducción
+              </h2>
+              <button class="module-toggle" type="button" aria-expanded="true">
+                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">Mostrar u ocultar módulo</span>
+              </button>
+            </div>
+            <div class="class-list">
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Bienvenida y qué aprenderás</div>
+                  <div class="class-meta">De qué va este curso, cómo te puede ayudar y visión general del camino que seguirás con tus finanzas.</div>
+                </div>
+                <div class="class-video">
+                  <div class="video-aspect">
+                    <iframe
+                      src="https://www.youtube-nocookie.com/embed/FzYbaHAcwsE?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1"
+                      title="Video de bienvenida (demo)"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                </div>
+                <div>
+                  <span class="class-duration">03:00</span>
                 </div>
               </div>
-              <div class="step-label">Ej.: entregar tareas por email</div>
             </div>
-            <div class="step step-2">
-              <div class="step-overlay"></div>
-              <div>
-                <div class="step-level">Nivel 2</div>
-                <div class="step-title">Aumento</div>
-                <div class="step-desc">
-                  La tarea se mejora con funciones adicionales.
+          </article>
+
+          <!-- MÓDULO 1 -->
+          <article class="module open">
+            <div class="module-header">
+              <h2 class="module-title">
+                <span>Módulo 1</span> Tu dinero, tus reglas
+              </h2>
+              <button class="module-toggle" type="button" aria-expanded="true">
+                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">Mostrar u ocultar módulo</span>
+              </button>
+            </div>
+            <div class="class-list">
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">¿Qué son ingresos y gastos?</div>
+                  <div class="class-meta">Conceptos básicos pero explicados a tu lenguaje.</div>
+                </div>
+                <div class="class-video">
+                  <div class="video-aspect">
+                    <iframe
+                      src="https://www.youtube-nocookie.com/embed/hSaIifs9Qmo?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1"
+                      title="¿Qué son ingresos y gastos?"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                </div>
+                <div>
+                  <span class="class-duration">06:00</span>
                 </div>
               </div>
-              <div class="step-label">Ej.: documento con imágenes y enlaces</div>
-            </div>
-            <div class="step step-3">
-              <div class="step-overlay"></div>
-              <div>
-                <div class="step-level">Nivel 3</div>
-                <div class="step-title">Modificación</div>
-                <div class="step-desc">
-                  La actividad se rediseña gracias a la tecnología.
+
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Actividad 1: Detective de gastos</div>
+                  <div class="class-meta">Reto para registrar en qué se te va el dinero durante la semana.</div>
+                </div>
+                <div>
+                  <span class="class-duration">02:00</span>
+                  <a href="https://marcos2099xx.github.io/modulo1-detective-de-gastos/" class="class-link-btn">
+                    <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Abrir
+                  </a>
                 </div>
               </div>
-              <div class="step-label">Ej.: documento colaborativo en línea</div>
-            </div>
-            <div class="step step-4">
-              <div class="step-overlay"></div>
-              <div>
-                <div class="step-level">Nivel 4</div>
-                <div class="step-title">Redefinición</div>
-                <div class="step-desc">
-                  Se crean tareas nuevas que antes no eran posibles.
+
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Actividad 2: Bienestar financiero y hábitos</div>
+                  <div class="class-meta">Mini test + video + reflexión en foro sobre tus creencias del dinero.</div>
+                </div>
+                <div>
+                  <span class="class-duration">~30 min</span>
+                  <!-- ENLACE REAL A TU PÁGINA EXISTENTE -->
+                  <a href="https://marcos2099xx.github.io/modulo1-actividad2-bienestar-financiero/" class="class-link-btn">
+                    <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Abrir
+                  </a>
                 </div>
               </div>
-              <div class="step-label">Ej.: videoconferencias con expertos</div>
             </div>
-          </div>
-          <div class="hero-visual-caption">
-            <span>
-              El modelo SAMR se puede imaginar como una escalera que guía al docente
-              hacia usos cada vez más significativos de la tecnología.
-            </span>
-            <div class="chip">De la sustitución a la redefinición ⤴</div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </article>
 
-    <!-- SECCIÓN MODELO SAMR -->
-    <section>
-      <p class="pill-title">¿Qué es el modelo SAMR?</p>
-      <h2>Definición y propósito</h2>
-      <p>
-        El modelo SAMR es un marco para analizar y diseñar la integración de la tecnología
-        en el proceso de enseñanza-aprendizaje. Permite al docente reflexionar sobre si
-        la tecnología solo reemplaza una práctica tradicional o si realmente transforma
-        la experiencia de aprendizaje del estudiante.
-      </p>
+          <!-- MÓDULO 2 -->
+          <article class="module">
+            <div class="module-header">
+              <h2 class="module-title">
+                <span>Módulo 2</span> Presupuesta sin volverte loco
+              </h2>
+              <button class="module-toggle" type="button" aria-expanded="false">
+                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">Mostrar u ocultar módulo</span>
+              </button>
+            </div>
+            <div class="class-list">
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">El método 50/30/20 explicado fácil</div>
+                  <div class="class-meta">Lo esencial, lo que quieres y lo que puedes guardar.</div>
+                </div>
+                <div>
+                  <span class="class-duration">07:00</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Actividad: Tu primer presupuesto</div>
+                  <div class="class-meta">Plantilla guiada para crear tu presupuesto mensual.</div>
+                </div>
+                <div>
+                  <span class="class-duration">~45 min</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
 
-      <div class="image-placeholder">
-        <strong>Sugerencia para la tarea:</strong> aquí puedes insertar una
-        <em>infografía del modelo SAMR</em> (por ejemplo, una imagen con la escalera de
-        Sustitución, Aumento, Modificación y Redefinición). Al imprimir o exportar
-        este sitio a PDF, la imagen formará parte de tu entrega.
-      </div>
-    </section>
+          <!-- MÓDULO 3 -->
+          <article class="module">
+            <div class="module-header">
+              <h2 class="module-title">
+                <span>Módulo 3</span> ¿A dónde se fue mi dinero?
+              </h2>
+              <button class="module-toggle" type="button" aria-expanded="false">
+                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">Mostrar u ocultar módulo</span>
+              </button>
+            </div>
+            <div class="class-list">
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Qué son los gastos hormiga</div>
+                  <div class="class-meta">Cómo se cuelan en tu día a día sin que los notes.</div>
+                </div>
+                <div>
+                  <span class="class-duration">06:30</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Mini reto: Suma tus gastos hormiga</div>
+                  <div class="class-meta">Ejercicio para ver cuánto podrías ahorrar solo ajustando detalles.</div>
+                </div>
+                <div>
+                  <span class="class-duration">~30 min</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
 
-    <!-- NIVELES SAMR -->
-    <section id="niveles">
-      <p class="pill-title">Estructura del modelo</p>
-      <h2>Los cuatro niveles del modelo SAMR</h2>
-      <p>
-        Cada nivel representa un grado diferente de integración tecnológica. Los dos primeros
-        niveles se consideran de <strong>mejora</strong> y los dos últimos de
-        <strong>transformación</strong>.
-      </p>
+          <!-- MÓDULO 4 -->
+          <article class="module">
+            <div class="module-header">
+              <h2 class="module-title">
+                <span>Módulo 4</span> Ahorra con propósito, no por obligación
+              </h2>
+              <button class="module-toggle" type="button" aria-expanded="false">
+                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">Mostrar u ocultar módulo</span>
+              </button>
+            </div>
+            <div class="class-list">
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Metas financieras SMART</div>
+                  <div class="class-meta">Cómo plantear metas claras, realistas y motivadoras.</div>
+                </div>
+                <div>
+                  <span class="class-duration">08:00</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+              <div class="class-item">
+                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-main">
+                  <div class="class-title">Actividad final: Tu plan financiero personal</div>
+                  <div class="class-meta">Presupuesto, metas y hábitos integrados en un solo documento.</div>
+                </div>
+                <div>
+                  <span class="class-duration">~1 h</span>
+                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
+                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
 
-      <div class="levels-grid">
-        <article class="card">
-          <div class="level-tag">
-            <span class="dot dot-s"></span>
-            Sustitución · Nivel básico
-          </div>
-          <h3>Sustitución</h3>
-          <p>
-            La tecnología actúa como un sustituto directo de una herramienta tradicional,
-            sin cambios funcionales en la tarea.
-          </p>
-          <ul class="list">
-            <li>Enviar tareas por correo electrónico en lugar de entregarlas impresas.</li>
-            <li>Leer un archivo PDF en lugar de un libro físico.</li>
-            <li>Escribir un texto en procesador de palabras y luego imprimirlo.</li>
+        </section>
+
+        <!-- SOBRE EL CURSO -->
+        <section class="tab-panel" id="tab-sobre">
+          <h2 class="section-title">Requerimientos</h2>
+          <ul class="requirement-list">
+            <li>
+              <i class="fas fa-square" aria-hidden="true"></i>
+              <span>No necesitas conocimientos previos de finanzas para tomar este curso.</span>
+            </li>
+            <li>
+              <i class="fas fa-square" aria-hidden="true"></i>
+              <span>Solo requieres acceso a internet y, de preferencia, una computadora o tablet para trabajar tus actividades.</span>
+            </li>
+            <li>
+              <i class="fas fa-square" aria-hidden="true"></i>
+              <span>Se recomienda contar con una app de notas, Excel, Google Sheets o similar para los ejercicios de presupuesto y registro de gastos.</span>
+            </li>
           </ul>
-        </article>
 
-        <article class="card">
-          <div class="level-tag">
-            <span class="dot dot-a"></span>
-            Aumento · Mejora funcional
-          </div>
-          <h3>Aumento</h3>
-          <p>
-            La tecnología sigue siendo un sustituto, pero la actividad incluye mejoras
-            funcionales que enriquecen la experiencia.
+          <h2 class="section-title">Descripción del curso</h2>
+          <p class="paragraph">
+            Este curso está pensado para jóvenes universitarios que están comenzando a manejar su propio dinero:
+            becas, apoyos familiares, trabajos de medio tiempo o pequeños emprendimientos. El objetivo es que
+            tengas herramientas simples y útiles para dejar de sentir que tu dinero “se va solo” y puedas empezar
+            a tomar decisiones más conscientes.
           </p>
-          <ul class="list">
-            <li>Enviar tareas por Google Drive agregando imágenes, enlaces y comentarios.</li>
-            <li>Usar el corrector ortográfico y diccionario integrado del procesador de textos.</li>
-            <li>Recibir retroalimentación digital mediante comentarios o notas en línea.</li>
+          <p class="paragraph">
+            A lo largo de cuatro módulos, irás desde lo más básico hasta lo más práctico: entender qué pasa con
+            tu dinero, organizarlo en un presupuesto, detectar gastos hormiga y, finalmente, diseñar metas de
+            ahorro con sentido para ti. Todo con actividades breves, retos reales y espacios de reflexión.
+          </p>
+
+          <h2 class="section-title">¿Qué aprenderás?</h2>
+          <ul class="learn-list">
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              <span>Identificar tus ingresos y gastos y entender cómo se relacionan con tu bienestar financiero.</span>
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              <span>Aplicar un método sencillo de presupuesto (como 50/30/20) adaptado a tu realidad.</span>
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              <span>Detectar “gastos hormiga” y diseñar estrategias concretas para reducirlos sin dejar de disfrutar.</span>
+            </li>
+            <li>
+              <i class="fas fa-check" aria-hidden="true"></i>
+              <span>Plantear metas de ahorro alcanzables y construir un plan financiero básico paso a paso.</span>
+            </li>
           </ul>
-        </article>
 
-        <article class="card">
-          <div class="level-tag">
-            <span class="dot dot-m"></span>
-            Modificación · Rediseño de tareas
-          </div>
-          <h3>Modificación</h3>
-          <p>
-            La tecnología permite un rediseño significativo de la tarea. Cambia la forma
-            en que el estudiante crea, colabora o presenta.
+          <h2 class="section-title">¿Cómo se trabaja en este curso?</h2>
+          <p class="paragraph">
+            El curso combina microcontenidos (videos cortos, lecturas ligeras, infografías) con retos prácticos
+            y actividades de reflexión. No se trata de memorizar conceptos, sino de aplicarlos en tu propia vida:
+            registrar tus gastos reales, crear tu propio presupuesto, cuestionar tus creencias sobre el dinero y
+            diseñar metas que te emocionen.
           </p>
-          <ul class="list">
-            <li>Redactar un documento colaborativo en línea donde varios estudiantes editan a la vez.</li>
-            <li>Utilizar un aula virtual para organizar debates escritos o foros.</li>
-            <li>Crear productos digitales como infografías o presentaciones interactivas.</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <div class="level-tag">
-            <span class="dot dot-r"></span>
-            Redefinición · Transformación total
-          </div>
-          <h3>Redefinición</h3>
-          <p>
-            La tecnología hace posible tareas completamente nuevas, que antes eran
-            difíciles o imposibles de realizar en el aula tradicional.
+          <p class="paragraph">
+            Todo está pensado para que avances a tu ritmo. Puedes hacer las actividades de manera individual,
+            pero también hay espacios para compartir ideas, dudas y aprendizajes con otras personas que están
+            en la misma etapa que tú.
           </p>
-          <ul class="list">
-            <li>Elaborar videos educativos y subirlos a plataformas como YouTube.</li>
-            <li>Colaborar con estudiantes de otros países mediante videoconferencias.</li>
-            <li>Diseñar proyectos multimedia interactivos que integran audio, video y enlaces.</li>
-          </ul>
-        </article>
+        </section>
       </div>
-
-      <table class="comparative-table">
-        <thead>
-          <tr>
-            <th>Nivel</th>
-            <th>Tipo de cambio</th>
-            <th>Rol de la tecnología</th>
-            <th>Ejemplo resumido</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sustitución</td>
-            <td>Mejora · básico</td>
-            <td>Reemplaza la herramienta sin cambiar la tarea.</td>
-            <td>Enviar tareas por email en vez de impresas.</td>
-          </tr>
-          <tr>
-            <td>Aumento</td>
-            <td>Mejora · avanzado</td>
-            <td>Añade funciones que enriquecen la misma tarea.</td>
-            <td>Documento digital con imágenes, enlaces y comentarios.</td>
-          </tr>
-          <tr>
-            <td>Modificación</td>
-            <td>Transformación · parcial</td>
-            <td>Rediseña la tarea apoyándose en la tecnología.</td>
-            <td>Documento colaborativo en línea para trabajo en equipo.</td>
-          </tr>
-          <tr>
-            <td>Redefinición</td>
-            <td>Transformación · total</td>
-            <td>Crea tareas nuevas, antes imposibles.</td>
-            <td>Videoconferencias con expertos y trabajo con otras escuelas.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- EJEMPLOS INTERACTIVOS -->
-    <section id="ejemplos">
-      <p class="pill-title">Aplicación práctica</p>
-      <h2>Ejemplos de actividades según el modelo SAMR</h2>
-      <p>
-        A continuación se presentan ejemplos de tareas usando tecnología en diferentes
-        contextos. Puedes filtrar por nivel del modelo SAMR para observar cómo cambia
-        el grado de transformación de la actividad.
-      </p>
-
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="Sustitución">Sustitución</button>
-        <button class="filter-btn" data-filter="Aumento">Aumento</button>
-        <button class="filter-btn" data-filter="Modificación">Modificación</button>
-        <button class="filter-btn" data-filter="Redefinición">Redefinición</button>
-      </div>
-
-      <div class="examples-grid">
-        <!-- Ejemplo 1 -->
-        <article class="example-card" data-level="Sustitución">
-          <h4>Entrega de tarea en PDF</h4>
-          <div class="example-context">Asignatura: Lengua · Contexto: Secundaria</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Sustitución
-          </div>
-          <p>
-            El docente pide a los estudiantes redactar un cuento y en lugar de
-            entregarlo impreso, lo envían como archivo PDF adjunto en un correo
-            electrónico.
-          </p>
-          <div class="example-tag">
-            <span>💻</span> Uso básico de tecnología (solo reemplaza el papel).
-          </div>
-        </article>
-
-        <!-- Ejemplo 2 -->
-        <article class="example-card" data-level="Aumento">
-          <h4>Informe digital con recursos enriquecidos</h4>
-          <div class="example-context">Asignatura: Ciencias · Contexto: Secundaria</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Aumento
-          </div>
-          <p>
-            Los estudiantes elaboran un informe en Google Docs y añaden imágenes, enlaces
-            a videos, gráficos y usan el corrector ortográfico. El docente comenta
-            directamente en el documento.
-          </p>
-          <div class="example-tag">
-            <span>✨</span> La tecnología agrega funciones que mejoran la misma tarea.
-          </div>
-        </article>
-
-        <!-- Ejemplo 3 -->
-        <article class="example-card" data-level="Modificación">
-          <h4>Proyecto colaborativo en línea</h4>
-          <div class="example-context">Asignatura: Historia · Contexto: Bachillerato</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Modificación
-          </div>
-          <p>
-            Los estudiantes trabajan en equipos para crear una línea del tiempo digital
-            colaborativa sobre un periodo histórico, usando una herramienta en línea.
-            Cada equipo investiga, edita y comenta en tiempo real.
-          </p>
-          <div class="example-tag">
-            <span>🤝</span> La tarea se rediseña en torno a la colaboración digital.
-          </div>
-        </article>
-
-        <!-- Ejemplo 4 -->
-        <article class="example-card" data-level="Redefinición">
-          <h4>Podcast histórico internacional</h4>
-          <div class="example-context">Asignatura: Historia · Contexto: Bachillerato</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Redefinición
-          </div>
-          <p>
-            Grupos de estudiantes crean un <em>podcast</em> sobre acontecimientos
-            históricos y lo publican en línea. Colaboran con estudiantes de otra
-            escuela de otro país para comparar perspectivas.
-          </p>
-          <div class="example-tag">
-            <span>🌍</span> Actividad antes impensable sin tecnología digital.
-          </div>
-        </article>
-
-        <!-- Ejemplo 5 -->
-        <article class="example-card" data-level="Redefinición">
-          <h4>Videoconferencia con expertos</h4>
-          <div class="example-context">Asignatura: Ciencias · Contexto: Secundaria</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Redefinición
-          </div>
-          <p>
-            La clase entrevista por videoconferencia a un científico de otra ciudad y
-            luego elabora un video resumen con sus conclusiones, que se comparte en la
-            comunidad escolar.
-          </p>
-          <div class="example-tag">
-            <span>🎥</span> La tecnología abre el aula al mundo real.
-          </div>
-        </article>
-
-        <!-- Ejemplo 6 -->
-        <article class="example-card" data-level="Modificación">
-          <h4>Infografía interactiva del modelo SAMR</h4>
-          <div class="example-context">Formación docente · Contexto: Universidad</div>
-          <div class="example-level">
-            <span class="level-label">Nivel SAMR:</span> Modificación
-          </div>
-          <p>
-            Los futuros docentes transforman una lectura teórica en una infografía
-            digital interactiva, que luego comparten en un aula virtual para que
-            compañeros y profesores comenten.
-          </p>
-          <div class="example-tag">
-            <span>📊</span> Se rediseña la forma de presentar y discutir la teoría.
-          </div>
-        </article>
-      </div>
-
-      <div class="quiz">
-        <h3>Mini cuestionario: ¿en qué nivel está?</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem;">
-          Lee cada situación y selecciona el nivel del modelo SAMR que consideres
-          correcto. Haz clic para comprobar tu respuesta.
-        </p>
-
-        <!-- Pregunta 1 -->
-        <div class="quiz-item" data-answer="Aumento">
-          <div class="quiz-question">
-            1) El profesor pide a los estudiantes escribir un ensayo en Google Docs y
-            utilizar comentarios para dar y recibir retroalimentación entre compañeros.
-          </div>
-          <div class="quiz-options">
-            <button>✔ Sustitución</button>
-            <button>✔ Aumento</button>
-            <button>✔ Modificación</button>
-            <button>✔ Redefinición</button>
-          </div>
-          <div class="quiz-feedback"></div>
-        </div>
-
-        <!-- Pregunta 2 -->
-        <div class="quiz-item" data-answer="Redefinición">
-          <div class="quiz-question">
-            2) Estudiantes de distintos países diseñan juntos un proyecto científico y
-            presentan sus resultados mediante una videoconferencia internacional.
-          </div>
-          <div class="quiz-options">
-            <button>✔ Sustitución</button>
-            <button>✔ Aumento</button>
-            <button>✔ Modificación</button>
-            <button>✔ Redefinición</button>
-          </div>
-          <div class="quiz-feedback"></div>
-        </div>
-
-        <!-- Pregunta 3 -->
-        <div class="quiz-item" data-answer="Sustitución">
-          <div class="quiz-question">
-            3) El docente proyecta en una pantalla el mismo libro que antes se leía en
-            papel, sin cambios en la actividad.
-          </div>
-          <div class="quiz-options">
-            <button>✔ Sustitución</button>
-            <button>✔ Aumento</button>
-            <button>✔ Modificación</button>
-            <button>✔ Redefinición</button>
-          </div>
-          <div class="quiz-feedback"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VENTAJAS -->
-    <section id="ventajas">
-      <p class="pill-title">¿Por qué utilizarlo?</p>
-      <h2>Ventajas del modelo SAMR en la práctica docente</h2>
-      <p>
-        El modelo SAMR no es una receta fija, sino una guía para reflexionar sobre el
-        uso pedagógico de la tecnología. Algunas ventajas de utilizarlo son:
-      </p>
-
-      <div class="grid grid-2">
-        <article class="card">
-          <h3>Planificación más consciente</h3>
-          <p>
-            Permite al docente preguntarse: <em>¿solo estoy sustituyendo una práctica
-            tradicional o realmente estoy mejorando o transformando el aprendizaje?</em>
-          </p>
-          <ul class="list">
-            <li>Ayuda a reflexionar sobre el propósito de cada herramienta digital.</li>
-            <li>Evita usar tecnología solo “por moda” o por obligación.</li>
-            <li>Facilita la toma de decisiones pedagógicas fundamentadas.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Desarrollo de competencias digitales</h3>
-          <p>
-            Al avanzar por los niveles SAMR, tanto docentes como estudiantes desarrollan
-            habilidades para manejar la tecnología de forma crítica y creativa.
-          </p>
-          <ul class="list">
-            <li>Promueve la colaboración en línea y la comunicación efectiva.</li>
-            <li>Fomenta la creatividad mediante recursos multimedia.</li>
-            <li>Integra el trabajo con información digital y recursos abiertos.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Impulso al aprendizaje profundo</h3>
-          <p>
-            En los niveles de Modificación y Redefinición, la tecnología abre la puerta
-            a proyectos auténticos y significativos para el estudiante.
-          </p>
-          <ul class="list">
-            <li>Conecta la escuela con problemas reales y contextos auténticos.</li>
-            <li>Favorece el aprendizaje basado en proyectos y retos.</li>
-            <li>Integra diferentes lenguajes (texto, imagen, audio, video).</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Escalera flexible y adaptable</h3>
-          <p>
-            No todos los docentes ni todas las actividades deben llegar siempre a la
-            Redefinición. Lo importante es elegir conscientemente el nivel adecuado.
-          </p>
-          <ul class="list">
-            <li>Ofrece un lenguaje común para hablar de tecnología educativa.</li>
-            <li>Se adapta a distintos niveles educativos y asignaturas.</li>
-            <li>Permite evaluar y mejorar prácticas ya existentes.</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="chips-row">
-        <div class="chip-pill">✅ Claridad en la planificación</div>
-        <div class="chip-pill">✅ Enfoque en el aprendizaje</div>
-        <div class="chip-pill">✅ Uso significativo de la tecnología</div>
-        <div class="chip-pill">✅ Proyectos auténticos</div>
-      </div>
-    </section>
-
-    <!-- CONCLUSIONES -->
-    <section id="conclusiones">
-      <p class="pill-title">Cierre</p>
-      <h2>Conclusiones</h2>
-      <div class="conclusion-card">
-        <p>
-          El modelo SAMR es una herramienta sencilla pero poderosa para analizar el
-          impacto real de la tecnología en el aula. No se trata solo de cambiar el
-          medio (del papel a la pantalla), sino de transformar la experiencia de
-          aprendizaje y abrir posibilidades nuevas.
-        </p>
-        <p>
-          Cuando el docente utiliza la tecnología únicamente en los niveles de
-          <strong>Sustitución</strong> y <strong>Aumento</strong>, el aprendizaje se
-          mantiene cercano a las prácticas tradicionales, aunque con ciertas mejoras.
-          Al avanzar hacia <strong>Modificación</strong> y
-          <strong>Redefinición</strong>, las actividades se vuelven más colaborativas,
-          creativas y conectadas con el mundo real.
-        </p>
-        <p>
-          Integrar el modelo SAMR en la planificación permite diseñar experiencias
-          formativas más ricas, en las que la tecnología deja de ser un accesorio y se
-          convierte en un medio para el <strong>aprendizaje profundo en contextos
-          auténticos</strong>.
-        </p>
-      </div>
-    </section>
-
-    <footer>
-      <span>
-        Documento redefinido como mini sitio web siguiendo el modelo SAMR
-        (Modificación y Redefinición).
-      </span>
-      <span>
-        Autor: <strong>Apellido Paterno, Nombre</strong> · Archivo sugerido:
-        <strong>ApellidoPaterno_Nombre_MSAMR.pdf</strong>
-      </span>
-    </footer>
-  </main>
+    </main>
+  </div>
 
   <script>
-    // Scroll suave a secciones
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        window.scrollTo({
-          top: el.offsetTop - 80,
-          behavior: "smooth",
-        });
+    // Tema claro/oscuro
+    const rootEl = document.documentElement;
+    const themeBtn = document.getElementById("themeToggle");
+    const themeLabel = document.getElementById("themeToggleLabel");
+
+    const setToggleVisual = (t) => {
+      if (!themeBtn) return;
+      const icon = themeBtn.querySelector("i");
+      if (t === "light") {
+        icon.className = "fas fa-sun";
+        themeLabel && (themeLabel.textContent = "Claro");
+      } else {
+        icon.className = "fas fa-moon";
+        themeLabel && (themeLabel.textContent = "Oscuro");
       }
+    };
+
+    const applyTheme = (t) => {
+      rootEl.dataset.theme = t;
+      try { localStorage.setItem("theme", t); } catch {}
+      setToggleVisual(t);
+    };
+
+    const savedTheme = (() => { try { return localStorage.getItem("theme"); } catch { return null; } })();
+    if (savedTheme === "light" || savedTheme === "dark") {
+      applyTheme(savedTheme);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      setToggleVisual(prefersLight ? "light" : "dark");
     }
 
-    // Filtro de ejemplos por nivel SAMR
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const exampleCards = document.querySelectorAll(".example-card");
+    themeBtn && themeBtn.addEventListener("click", () => {
+      const current = rootEl.dataset.theme || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      applyTheme(current === "light" ? "dark" : "light");
+    });
 
-    filterButtons.forEach((btn) => {
+    // Tabs
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels  = document.querySelectorAll(".tab-panel");
+
+    tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
-        const filter = btn.getAttribute("data-filter");
+        const target = btn.dataset.tab;
 
-        filterButtons.forEach((b) => b.classList.remove("active"));
+        tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        exampleCards.forEach((card) => {
-          const level = card.getAttribute("data-level");
-          if (filter === "all" || level === filter) {
-            card.classList.remove("example-hidden");
-          } else {
-            card.classList.add("example-hidden");
-          }
+        tabPanels.forEach(panel => {
+          panel.classList.toggle("active", panel.id === `tab-${target}`);
         });
       });
     });
 
-    // Lógica del mini cuestionario
-    const quizItems = document.querySelectorAll(".quiz-item");
+    // Módulos desplegables accesibles
+    document.querySelectorAll(".module").forEach((module, idx) => {
+      const header = module.querySelector(".module-header");
+      const toggleBtn = module.querySelector(".module-toggle");
+      const listEl = module.querySelector(".class-list");
+      if (!header || !listEl) return;
 
-    quizItems.forEach((item) => {
-      const correctAnswer = item.getAttribute("data-answer");
-      const buttons = item.querySelectorAll(".quiz-options button");
-      const feedback = item.querySelector(".quiz-feedback");
+      const listId = listEl.id || `module-${idx}-list`;
+      listEl.id = listId;
+      if (toggleBtn) toggleBtn.setAttribute("aria-controls", listId);
 
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const text = btn.textContent.replace("✔", "").trim();
+      const setState = (open) => {
+        module.classList.toggle("open", open);
+        if (toggleBtn) toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
 
-          if (text === correctAnswer) {
-            feedback.textContent = "✔ Respuesta correcta: " + correctAnswer + ".";
-            feedback.classList.remove("incorrect");
-            feedback.classList.add("correct");
-          } else {
-            feedback.textContent = "✘ Respuesta incorrecta. Intenta de nuevo.";
-            feedback.classList.remove("correct");
-            feedback.classList.add("incorrect");
-          }
-        });
+      setState(module.classList.contains("open"));
+
+      // Click en botón
+      toggleBtn && toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setState(!module.classList.contains("open"));
+      });
+
+      // Click en header (fuera del botón)
+      header.addEventListener("click", (e) => {
+        if (e.target.closest(".module-toggle")) return;
+        setState(!module.classList.contains("open"));
       });
     });
   </script>
